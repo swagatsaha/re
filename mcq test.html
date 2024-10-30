@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHYZIG - Online Exam Portal</title>
+    <style>
+        /* CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .header {
+            background-color: #800000; /* Brownish Maroon */
+            color: #fff;
+            padding: 20px;
+            border: #ecedf0;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .topics {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            background-color: #800000; /* Brownish Maroon */
+            z-index: 9999;
+        }
+        .topic {
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            width: calc(33.33% - 10px); /* Adjust for margin */
+        }
+        .modal {
+            background-color: #7b3d1e; /* Darker Brownish Maroon */
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            z-index: 0; /* Ensure modal appears below header and topics */
+            position: absolute;
+            margin-top: 300px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+        }
+        .modal.active {
+            display: block;
+        }
+        .modal p {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        .option {
+            margin-bottom: 10px;
+        }
+        .option input[type="radio"] {
+            display: none;
+        }
+        .option label {
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+        }
+        .option label:hover {
+            background-color: #ccc;
+        }
+        .option input[type="radio"]:checked + label {
+            background-color: #800000; /* Brownish Maroon */
+            color: #fff;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #f2d4a2; /* Brownish Maroon */
+            color: #0b0606;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        .btn:hover {
+            background-color: #500000; /* Darker Maroon */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.12);
+        }
+        .timer {
+            text-align: center;
+            font-size: 20px;
+            background-color: #800000; /* Brownish Maroon */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 10px; /* Adjusted */
+            margin-bottom: 20px; /* Added */
+            width: 60%; /* Adjusted */
+        }
+        .results-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        .results-content {
+            background-color: #fff; /* White background */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .results-content h2 {
+            margin-top: 0;
+            color: #800000; /* Brownish Maroon */
+        }
+        .results-content p {
+            margin-bottom: 20px;
+        }
+        .close-btn {
+            background-color: #f0bd96; /* Brownish Maroon */
+            color: #090303;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            background-color: #500000; /* Darker Maroon */
+        }
+        /* Calculator styles */
+        .calculator-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+        .calculator-container iframe {
+            width: 300px;
+            height: 400px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">PHYZIG - Online Exam Portal</div>
+
+    <!-- Topic Selection -->
+    <div class="topics">
+        <div class="topic">Chapter: Force and Pressure</div>
+        <div class="topic">Topic: Force and Its Effects</div>
+        <div class="topic">Duration: 30 min</div>
+    </div>
+
+    <!-- Confirmation dialog -->
+    <div class="timer" id="timer">
+        <button class="btn start-exam" onclick="confirmStartExam()">Start Exam</button>
+        <button class="btn start-exam" onclick="returnToHomePage()">Return to Home Page</button>
+    </div>
+
+    <!-- First Floating Window (Question 1) -->
+    <div class="modal" id="question1">
+        <p>Question 1: What is the capital of France?</p>
+        <div class="options">
+            <div class="option">
+                <input type="radio" id="option1" name="answer1" value="Paris">
+                <label for="option1">Paris</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option2" name="answer1" value="London">
+                <label for="option2">London</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option3" name="answer1" value="Berlin">
+                <label for="option3">Berlin</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option4" name="answer1" value="Madrid">
+                <label for="option4">Madrid</label>
+            </div>
+        </div>
+        <div class="btn-container" id="btnContainer1">
+            <button class="btn" onclick="showNextQuestion('question2')">Next</button>
+            <button class="btn" onclick="showNextQuestion('question1')">Previous</button>
+            <button class="btn" onclick="toggleCalculator()">Calculator</button>
+        </div>
+    </div>
+
+    <!-- Second Floating Window (Question 2) -->
+    <div class="modal" id="question2">
+        <p>Question 2: What is the capital of Spain?</p>
+        <div class="options">
+            <div class="option">
+                <input type="radio" id="option5" name="answer2" value="Paris">
+                <label for="option5">Paris</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option6" name="answer2" value="London">
+                <label for="option6">London</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option7" name="answer2" value="Madrid">
+                <label for="option7">Madrid</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option8" name="answer2" value="Berlin">
+                <label for="option8">Berlin</label>
+            </div>
+        </div>
+        <div class="btn-container" id="btnContainer2">
+            <button class="btn" onclick="showNextQuestion('question3')">Next</button>
+            <button class="btn" onclick="showNextQuestion('question1')">Previous</button>
+            <button class="btn" onclick="toggleCalculator()">Calculator</button>
+        </div>
+    </div>
+
+    <!-- Third Floating Window (Question 3) -->
+    <div class="modal" id="question3">
+        <p>Question 3: What is the capital of Germany?</p>
+        <div class="options">
+            <div class="option">
+                <input type="radio" id="option9" name="answer3" value="Berlin">
+                <label for="option9">Berlin</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option10" name="answer3" value="London">
+                <label for="option10">London</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option11" name="answer3" value="Madrid">
+                <label for="option11">Madrid</label>
+            </div>
+            <div class="option">
+                <input type="radio" id="option12" name="answer3" value="Paris">
+                <label for="option12">Paris</label>
+            </div>
+        </div>
+        <div class="btn-container" id="btnContainer3">
+            <button class="btn" onclick="showResults()">Submit</button>
+            <button class="btn" onclick="showNextQuestion('question2')">Previous</button>
+            <button class="btn" onclick="toggleCalculator()">Calculator</button>
+        </div>
+    </div>
+
+    <!-- Calculator Modal -->
+    <div class="calculator-container" id="calculator">
+        <iframe src="https://www.calculator.com/calculator" title="Calculator"></iframe>
+    </div>
+
+    <!-- Results Modal -->
+    <div class="results-modal" id="resultsModal">
+        <div class="results-content">
+            <h2>Your Results</h2>
+            <p>Thank you for completing the exam!</p>
+            <button class="close-btn" onclick="closeResults()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function confirmStartExam() {
+            document.getElementById("timer").style.display = "none"; // Hide the confirmation dialog
+            showNextQuestion('question1'); // Show the first question
+        }
+
+        function returnToHomePage() {
+            // Logic to return to home page (to be implemented)
+            alert("Returning to Home Page...");
+        }
+
+        function showNextQuestion(questionId) {
+            // Hide all questions
+            const questions = document.querySelectorAll('.modal');
+            questions.forEach((question) => {
+                question.style.display = 'none';
+            });
+            // Show the specified question
+            document.getElementById(questionId).style.display = 'block';
+        }
+
+        function showResults() {
+            // Hide all questions
+            const questions = document.querySelectorAll('.modal');
+            questions.forEach((question) => {
+                question.style.display = 'none';
+            });
+            // Show results modal
+            document.getElementById("resultsModal").style.display = "flex";
+        }
+
+        function closeResults() {
+            document.getElementById("resultsModal").style.display = "none"; // Close results modal
+        }
+
+        function toggleCalculator() {
+            const calculator = document.getElementById("calculator");
+            calculator.style.display = (calculator.style.display === "block") ? "none" : "block";
+        }
+    </script>
+</body>
+</html>

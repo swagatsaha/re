@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics PDF Viewer</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Styling for the body */
+        body {
+            background-color: #e8f0f2; /* Light background for a clean look */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden; /* Prevent page-level scroll */
+        }
+
+        /* Heading styling */
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            color: #1a237e; /* Navy blue color */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Container for the PDF */
+        .pdf-container {
+            width: 80%;
+            height: 75%; /* Adjusted height for better balance */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Soft shadow */
+            border-radius: 15px;
+            overflow-y: scroll; /* Vertical scroll only */
+            overflow-x: hidden; /* Hide horizontal scroll */
+            background-color: white;
+        }
+
+        /* Iframe styling */
+        iframe {
+            width: 100%; /* Ensures the PDF fits the container's width */
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Physics PDF Viewer</h1> <!-- Stylish Heading -->
+
+    <div class="pdf-container">
+        <iframe src="sci.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe> <!-- PDF embedded -->
+    </div>
+
+</body>
+</html>

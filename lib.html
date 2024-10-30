@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('libbg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        .library-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(236, 111, 111, 0);
+            border-radius: 10px;
+            overflow-y: auto; /* Enable vertical scrollbar */
+            max-height: calc(100vh - 40px); /* Adjust max height as needed */
+        }
+
+        .library-header {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 2px;
+        }
+
+        .class-container {
+            margin: 70px auto;
+            padding: 20px;
+            background-color: rgba(70, 15, 14, 0.573);
+            border-radius: 10px;
+            color: #000;
+            position: relative; /* Ensure relative positioning */
+        }
+
+        .class-container h2 {
+            text-align: center;
+            color: beige;
+            font-size: xx-large;
+            margin-bottom: 20px;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 300px; /* Adjust height as needed */
+            overflow: hidden;
+            perspective: 1000px;
+            margin: 0 auto; /* Center horizontally */
+        }
+
+        .carousel {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            transform-style: preserve-3d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .book {
+            position: absolute;
+            width: 100px; /* Adjust book width as needed */
+            height: 150px; /* Adjust book height as needed */
+            border: 1px solid #fff;
+            background: #fff;
+            border-radius: 10px; /* Book-like shape */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.818);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .book img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px 5px 0 0; /* Book-like shape */
+            object-fit: cover;
+        }
+
+        .button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .button.left {
+            left: 20px;
+        }
+
+        .button.right {
+            right: 20px;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            margin: 0; /* No margin */
+            display: block;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 10px; /* Added padding for better click area */
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="library-container">
+        <div class="library-header">
+            <h1>Physics Library</h1>
+        </div>
+
+        <!-- Class 8 Section -->
+        <div class="class-container">
+            <h2>Class 8</h2>
+            <div class="carousel-container" id="carousel8">
+                <div class="carousel" id="carouselContent8">
+                    <div class="book" style="transform: rotateY(0deg) translateZ(200px);" onclick="openModal('path/to/class8_book1.pdf')">
+                        <img src="c.jpg" alt="Class 8 Book 1">
+                    </div>
+                    <div class="book" style="transform: rotateY(60deg) translateZ(200px);" onclick="openModal('path/to/class8_book2.pdf')">
+                        <img src="c.jpg" alt="Class 8 Book 2">
+                    </div>
+                    <div class="book" style="transform: rotateY(120deg) translateZ(200px);" onclick="openModal('path/to/class8_book3.pdf')">
+                        <img src="c.jpg" alt="Class 8 Book 3">
+                    </div>
+                    <div class="book" style="transform: rotateY(180deg) translateZ(200px);" onclick="openModal('path/to/class8_book4.pdf')">
+                        <img src="c.jpg" alt="Class 8 Book 4">
+                    </div>
+                    <div class="book" style="transform: rotateY(240deg) translateZ(200px);" onclick="openModal('path/to/class8_book5.pdf')">
+                        <img src="c.jpg" alt="Class 8 Book 5">
+                    </div>
+                </div>
+                <button class="button left" onclick="rotateLeft('carouselContent8')">&lt;</button>
+                <button class="button right" onclick="rotateRight('carouselContent8')">&gt;</button>
+            </div>
+        </div>
+
+        <!-- Class 9 Section -->
+        <div class="class-container">
+            <h2>Class 9</h2>
+            <div class="carousel-container" id="carousel9">
+                <div class="carousel" id="carouselContent9">
+                    <div class="book" style="transform: rotateY(0deg) translateZ(200px);" onclick="openModal('path/to/class9_book1.pdf')">
+                        <img src="c.jpg" alt="Class 9 Book 1">
+                    </div>
+                    <div class="book" style="transform: rotateY(60deg) translateZ(200px);" onclick="openModal('path/to/class9_book2.pdf')">
+                        <img src="c.jpg" alt="Class 9 Book 2">
+                    </div>
+                    <div class="book" style="transform: rotateY(120deg) translateZ(200px);" onclick="openModal('path/to/class9_book3.pdf')">
+                        <img src="c.jpg" alt="Class 9 Book 3">
+                    </div>
+                    <div class="book" style="transform: rotateY(180deg) translateZ(200px);" onclick="openModal('path/to/class9_book4.pdf')">
+                        <img src="c.jpg" alt="Class 9 Book 4">
+                    </div>
+                    <div class="book" style="transform: rotateY(240deg) translateZ(200px);" onclick="openModal('sci.pdf')">
+                        <img src="class10.jpg" alt="Class 9 Book 5">
+                    </div>
+                </div>
+                <button class="button left" onclick="rotateLeft('carouselContent9')">&lt;</button>
+                <button class="button right" onclick="rotateRight('carouselContent9')">&gt;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="pdfModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <iframe id="pdfContent" class="modal-content" src=""></iframe>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let currentRotation8 = 0; // Initialize rotation angle for Class 8
+        let currentRotation9 = 0; // Initialize rotation angle for Class 9
+
+        // Function to rotate the carousel left
+        function rotateLeft(carouselId) {
+            if (carouselId === 'carouselContent8') {
+                currentRotation8 -= 60; // Rotate 60 degrees left
+                document.getElementById(carouselId).style.transform = `rotateY(${currentRotation8}deg)`;
+            } else if (carouselId === 'carouselContent9') {
+                currentRotation9 -= 60; // Rotate 60 degrees left
+                document.getElementById(carouselId).style.transform = `rotateY(${currentRotation9}deg)`;
+            }
+        }
+
+        // Function to rotate the carousel right
+        function rotateRight(carouselId) {
+            if (carouselId === 'carouselContent8') {
+                currentRotation8 += 60; // Rotate 60 degrees right
+                document.getElementById(carouselId).style.transform = `rotateY(${currentRotation8}deg)`;
+            } else if (carouselId === 'carouselContent9') {
+                currentRotation9 += 60; // Rotate 60 degrees right
+                document.getElementById(carouselId).style.transform = `rotateY(${currentRotation9}deg)`;
+            }
+        }
+
+        // Function to open the PDF in modal
+        function openModal(pdfPath) {
+            const modal = document.getElementById('pdfModal');
+            const pdfContent = document.getElementById('pdfContent');
+            pdfContent.src = pdfPath + "#toolbar=0&navpanes=0&scrollbar=0"; // Set the PDF path
+            modal.style.display = 'block'; // Show the modal
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('pdfModal');
+            const pdfContent = document.getElementById('pdfContent');
+            pdfContent.src = ''; // Clear the PDF path
+            modal.style.display = 'none'; // Hide the modal
+        }
+    </script>
+</body>
+</html>

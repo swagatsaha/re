@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Home</title>
+   
+   <!-- Font Awesome CDN link -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <style>
+    /* Global Styles */
+    body {
+        font-family: arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        margin-left: px;
+        background-color: black;
+        background: linear-gradient(175deg, beige,brown);
+        color: black;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        position: relative; /* Added to position the background video correctly */
+    }
+    .header {
+        background-color: maroon;
+        color: #cb0808;
+        padding: 20px;
+        text-align: center;
+        z-index: 2; /* Ensure it is above the background video and other content */
+        position: fixed; /* Make the header fixed */
+        width: 100%; /* Ensure the header spans the full width */
+        top: 40; /* Fix to the top */
+    }
+
+
+
+    /* Background Video Styles */
+    #video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Set the z-index lower than other content */
+        object-fit: cover;
+    }
+
+
+
+    .header .logo {
+        color: beige;
+        text-decoration: none;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .header .search-form {
+        margin-top: 5px;
+    }
+
+    .header .search-form input[type="text"] {
+        padding: 10px;
+        width: 300px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .header .search-form button {
+        padding: 10px 20px;
+        background-color: beige;
+        color: maroon;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 10px;
+    }
+
+    /* Main Content Styles */
+    .main-content {
+        padding: 20px;
+        text-align: center;
+        flex: 1; /* Added to fill remaining space */
+        z-index: 1; /* Ensure it is above the background video */
+        position: relative;
+        margin-top: 80px; /* Add margin to compensate for fixed header height */
+    }
+
+    .course-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Ensure even spacing between columns */
+        margin-top: 20px;
+    }
+
+    /* Floating effect for courses */
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    .course {
+        background-color: #e9b57f;
+        border-radius: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, #b73a3a, #5c1717); 
+        margin-bottom: 20px; /* Adjust margin for spacing between rows */
+        padding: 10px;
+        width: calc(50% - 20px); /* Two containers per row */
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        box-sizing: border-box; /* Add this to include padding and border in the width */
+        animation: float 3s ease-in-out infinite; /* Apply floating animation */
+    }
+
+    .course img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 25px;
+        margin-bottom: 4px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .course a.btn {
+        background-color: beige;
+        color: maroon;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease; /* Added transition */
+    }
+
+    .course a.btn:hover {
+        background-color:black;
+        color: beige; /* Change text color on hover */
+    }
+
+    /* Additional Buttons Styles */
+    .additional-buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .additional-buttons .btn {
+        background-color: maroon; /* Maroonish brown */
+        color: beige;
+        padding: 10px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        margin: 0 5px;
+    }
+
+    .additional-buttons .btn:hover {
+        background-color: #efc689; /* Darker shade for hover effect */
+    }
+
+    /* Footer Styles */
+    .footer {
+        background-color: #8b0000;
+        color: beige;
+        padding: 20px;
+        text-align: center;
+        z-index: 1; /* Ensure it is above the background video */
+        position: relative;
+    }
+
+    /* Social Media Buttons */
+    .social-buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .social-buttons .btn {
+        background-color: #3b5998; /* Facebook Blue */
+        color: #fff;
+        padding: 5px 5px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        margin: 0 10px;
+    }
+
+    .social-buttons .btn:hover {
+        background-color: #2d4373; /* Darker shade for hover effect */
+    }
+
+    .social-buttons .whatsapp-btn {
+        background-color: #25D366; /* WhatsApp Green */
+    }
+
+    .social-buttons .whatsapp-btn:hover {
+        background-color: #1EBEA5; /* Darker shade for hover effect */
+    }
+
+    .social-buttons .instagram-btn {
+        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); /* Instagram Gradient */
+    }
+
+    .social-buttons .instagram-btn:hover {
+        background: linear-gradient(45deg, #e6683c, #f09433, #cc2366, #dc2743, #bc1888); /* Darker shade for hover effect */
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2; /* Ensure it is above other content */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 29% auto; /* Adjust the vertical position */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 60%; /* Set the width of the modal */
+        max-width: 100%; /* Set maximum width */
+        max-height: 110%; /* Set maximum height */
+        text-align: center; /* Center the image */
+    }
+
+    .modal-content img {
+        display: block; /* Make the image a block element */
+        max-width: 100%; /* Set maximum width to 100% */
+        max-height: 100%; /* Set maximum height to 100% */
+        margin: auto; /* Center the image horizontally */
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+   </style>
+</head>
+<body>
+    
+    <video autoplay muted loop id="video-background">
+        <source src="homebg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+      
+    <!-- Header -->
+    <header class="header">
+        <a href="home.html" class="logo">PHYZIGS</a>
+       
+       </form>
+    </header>
+     </header>
+ 
+     <!-- Main Content -->
+     <div class="main-content">
+        <!-- Simulation and Library Buttons -->
+        <div class="additional-buttons">
+           <a href="samp.html" class="btn">Sample Papers</a>
+           <a href="lib.html" class="btn">Library</a>
+        </div>
+ 
+        <!-- Course Containers -->
+        <div class="course-container">
+           <div class="course">
+              <img src="class8.jpg" alt="Class 8, 9, 10 Image">
+              <a href="pl8.html" class="btn">EXPLORE</a>
+           </div>
+           <div class="course">
+              <img src="class9.jpg" alt="Class 11, 12 Image">
+              <a href="pl9.html" class="btn">EXPLORE</a>
+           </div>
+           <div class="course">
+              <img src="class10.jpg" alt="BSc Semesters Image">
+              <a href="pl10.html" class="btn">EXPLORE</a>
+           </div>
+           <div class="course">
+              <img src="class11.jpg" alt="Test Image">
+              <a href="pl11.html" class="btn">EXPLORE</a>
+           </div>
+           <div class="course">
+              <img src="class12.jpg" alt="Notes Library Image">
+              <a href="pl12.html" class="btn">EXPLORE</a>
+           </div>
+           <div class="course">
+              <img src="bssem.jpg" alt="Notes Library Image">
+              <a href="plbs.html" class="btn">EXPLORE</a>
+           </div>
+        </div>
+ 
+        <!-- Social Media Buttons -->
+        <div class="social-buttons">
+           <a href="#" class="btn"><i class="fab fa-facebook-f"></i> Facebook</a>
+           <a href="https://wa.me/917077113049" class="btn whatsapp-btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+           <a href="https://www.instagram.com/swagat_saha?igsh=eDRoMTJ4eGE0dmc3" class="btn instagram-btn"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+     </div>
+ 
+     <!-- Footer -->
+     <footer class="footer">
+        &copy; Copyright @ 2022 by <span>PHYZIGS</span> | All rights reserved!
+     </footer>
+ 
+     <!-- Modal -->
+     <div id="myModal" class="modal">
+       <!-- Modal content -->
+       <div class="modal-content">
+         <span class="close">&times;</span>
+         <img src="front.jpg" alt="Modal Image">
+       </div>
+     </div>
+ 
+     <script>
+     // Get the modal
+     var modal = document.getElementById("myModal");
+ 
+     // Show modal after 2 seconds
+     setTimeout(function() {
+       modal.style.display = "block";
+     }, 1000);
+ 
+     // Get the close button
+     var span = document.getElementsByClassName("close")[0];
+ 
+     // When the user clicks on the close button, close the modal
+     span.onclick = function() {
+       modal.style.display = "none";
+     }
+ 
+     // When the user clicks anywhere outside of the modal, close it
+     window.onclick = function(event) {
+       if (event.target == modal) {
+         modal.style.display = "none";
+       }
+     }
+     </script>
+ 
+ </body>
+ </html>
+ 

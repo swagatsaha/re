@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Home</title>
+
+   <!-- Font Awesome CDN link -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+   <style>
+    /* Global Styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        background: linear-gradient(175deg, beige, brown);
+        color: black;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* Background Video Styles */
+    #video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        object-fit: cover;
+    }
+        /* Header Styles */
+        .header {
+        background-color: maroon;
+        color: #cb0808;
+        padding: 20px;
+        text-align: center;
+        z-index: 2; /* Ensure it is above the background video and other content */
+        position: fixed; /* Make the header fixed */
+        width: 100%; /* Ensure the header spans the full width */
+        top: 40; /* Fix to the top */
+    }
+
+    /* Header Styles */
+    .header {
+        background-color: maroon;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 2;
+    }
+
+    .header .logo {
+        color: beige;
+        text-decoration: none;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    /* Menu Styles */
+    .menu {
+        display: flex;
+        gap: 20px;
+    }
+
+    .menu a {
+        color: beige;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    .menu a:hover {
+        color: black;
+    }
+
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .hamburger span {
+        background-color: beige;
+        height: 3px;
+        width: 25px;
+        margin: 4px 0;
+    }
+
+    @media (max-width: 768px) {
+        .menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: maroon;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .menu.show {
+            display: flex;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+    }
+
+    /* Main Content Styles */
+    .main-content {
+        padding: 20px;
+        margin-top: 80px;
+        flex: 1;
+    }
+
+    /* Course and Button Styles */
+    .course-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .course {
+        background: linear-gradient(135deg, #b73a3a, #5c1717);
+        margin-bottom: 20px;
+        padding: 10px;
+        width: calc(50% - 20px);
+        text-align: center;
+        border-radius: 30px;
+    }
+
+    .course img {
+        max-width: 100%;
+        border-radius: 25px;
+    }
+
+    .course a.btn {
+        background-color: beige;
+        color: maroon;
+        padding: 5px 10px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .footer {
+        background-color: #8b0000;
+        color: beige;
+        text-align: center;
+        padding: 20px;
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 2;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        width: 60%;
+        text-align: center;
+    }
+
+    .close {
+        float: right;
+        font-size: 28px;
+        cursor: pointer;
+    }
+   </style>
+</head>
+<body>
+
+    <video autoplay muted loop id="video-background">
+        <source src="homebg.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="home.html" class="logo">PHYZIGS</a>
+
+        <!-- Navigation Menu -->
+        <nav class="menu">
+            <a href="home.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="services.html">Services</a>
+        </nav>
+
+        <!-- Hamburger Icon -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="additional-buttons">
+            <a href="simulation.html" class="btn">Simulation</a>
+            <a href="lib.html" class="btn">Library</a>
+        </div>
+
+        <div class="course-container">
+            <div class="course">
+                <img src="class8.jpg" alt="Class 8, 9, 10">
+                <a href="pl8.html" class="btn">EXPLORE</a>
+            </div>
+            <div class="course">
+                <img src="class9.jpg" alt="Class 11, 12">
+                <a href="pl9.html" class="btn">EXPLORE</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        &copy; 2022 PHYZIGS | All rights reserved!
+    </footer>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img src="front.jpg" alt="Modal Image">
+        </div>
+    </div>
+
+    <script>
+    // Toggle Menu
+    function toggleMenu() {
+        const menu = document.querySelector('.menu');
+        menu.classList.toggle('show');
+    }
+
+    // Close Modal
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+    }
+
+    // Show modal after 2 seconds
+    setTimeout(() => {
+        document.getElementById("myModal").style.display = "block";
+    }, 2000);
+    </script>
+</body>
+</html>

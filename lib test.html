@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('libbg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        .library-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(236, 111, 111, 0);
+            border-radius: 10px;
+            overflow-y: auto; /* Enable vertical scrollbar */
+            max-height: calc(100vh - 40px); /* Adjust max height as needed */
+        }
+
+        .library-header {
+            text-align: center;
+            padding: -40px;
+            font-size: 1.5em;
+            margin-top: 2px;
+        }
+
+        .class-container {
+            margin: 70px auto;
+            padding: 20px;
+            background-color: rgba(70, 15, 14, 0.573);
+            border-radius: 10px;
+            color: #000;
+            position: relative; /* Ensure relative positioning */
+        }
+
+        .class-container h2 {
+            text-align: center;
+            color:beige;
+            font-size: xx-large;
+            margin-bottom: 20px;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 200px; /* Adjust height as needed */
+            overflow: hidden;
+            perspective: 1000px;
+            margin: 0 auto; /* Center horizontally */
+        }
+
+        .carousel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-style: preserve-3d;
+            transform: translate(-50%, -50%) rotateY(0deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .book {
+            position: absolute;
+            width: 100px; /* Adjust book width as needed */
+            height: 150px; /* Adjust book height as needed */
+            border: 1px solid #fff;
+            background: #fff;
+            border-radius: 10px 10px 10px 10px; /* Book-like shape */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.818);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .book img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px 5px 0 0; /* Book-like shape */
+            object-fit: cover;
+            transform-style: preserve-3d; /* Ensure perspective is applied */
+        }
+
+        .button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .button.left {
+            left: 20px;
+        }
+
+        .button.right {
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="library-container">
+        <div class="library-header">
+            <h1>Physics Library</h1>
+        </div>
+
+        <!-- Class 8 Section -->
+        <div class="class-container">
+            <h2>Class 8</h2>
+            <div class="carousel-container">
+                <button class="button left" onclick="rotateCarousel(-1, 'carousel8')">‹</button>
+                <div class="carousel" id="carousel8">
+                    <!-- Repeat this block for each book -->
+                    <div class="book" style="transform: rotateY(0deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 1">
+                    </div>
+                    <div class="book" style="transform: rotateY(30deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 2">
+                    </div>
+                    <div class="book" style="transform: rotateY(60deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 3">
+                    </div>
+                    <div class="book" style="transform: rotateY(90deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 4">
+                    </div>
+                    <div class="book" style="transform: rotateY(120deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 5">
+                    </div>
+                    <div class="book" style="transform: rotateY(150deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 6">
+                    </div>
+                    <div class="book" style="transform: rotateY(180deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 7">
+                    </div>
+                    <div class="book" style="transform: rotateY(210deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 8">
+                    </div>
+                    <div class="book" style="transform: rotateY(240deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 9">
+                    </div>
+                    <div class="book" style="transform: rotateY(270deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 10">
+                    </div>
+                    <div class="book" style="transform: rotateY(300deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 11">
+                    </div>
+                    <div class="book" style="transform: rotateY(330deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 8 Book 12">
+                    </div>
+                    <!-- Add more books for Class 8 -->
+                </div>
+                <button class="button right" onclick="rotateCarousel(1, 'carousel8')">›</button>
+            </div>
+        </div>
+
+        <!-- Class 9 Section -->
+        <div class="class-container">
+            <h2>Class 9</h2>
+            <div class="carousel-container">
+                <button class="button left" onclick="rotateCarousel(-1, 'carousel9')">‹</button>
+                <div class="carousel" id="carousel9">
+                    <!-- Repeat this block for each book -->
+                    <div class="book" style="transform: rotateY(0deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 1">
+                    </div>
+                    <div class="book" style="transform: rotateY(30deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 2">
+                    </div>
+                    <div class="book" style="transform: rotateY(60deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 3">
+                    </div>
+                    <div class="book" style="transform: rotateY(90deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 4">
+                    </div>
+                    <div class="book" style="transform: rotateY(120deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 5">
+                    </div>
+                    <div class="book" style="transform: rotateY(150deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 6">
+                    </div>
+                    <div class="book" style="transform: rotateY(180deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 7">
+                    </div>
+                    <div class="book" style="transform: rotateY(210deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 8">
+                    </div>
+                    <div class="book" style="transform: rotateY(240deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 9">
+                    </div>
+                    <div class="book" style="transform: rotateY(270deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 10">
+                    </div>
+                    <div class="book" style="transform: rotateY(300deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 11">
+                    </div>
+                    <div class="book" style="transform: rotateY(330deg) translateZ(200px);">
+                        <img src="c.jpg" alt="Class 9 Book 12">
+                    </div>
+                    <!-- Add more books for Class 9 -->
+                </div>
+                <button class="button right" onclick="rotateCarousel(1, 'carousel9')">›</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function rotateCarousel(direction, carouselId) {
+            const carousel = document.getElementById(carouselId);
+            const angle = 30; // Angle between each book
+
+            // Get current rotation angle from data attribute, default to 0 if not set
+            let currentRotation = parseFloat(carousel.dataset.rotation) || 0;
+
+            // Calculate new rotation angle
+            let newRotation = currentRotation + (direction * angle);
+
+            // Apply the new rotation to the carousel
+            carousel.style.transform = `translate(-50%, -50%) rotateY(${newRotation}deg)`;
+
+            // Update the data attribute with the new rotation angle
+            carousel.dataset.rotation = newRotation;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Papers and Practice Sheets</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Styling for the body */
+        body {
+            background-color: #800000; /* Maroon background */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            min-height: 100vh; /* Full viewport height */
+        }
+
+        /* Main container for classes */
+        .class-container {
+            width: 90%;
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #ffffff; /* White border for contrast */
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* 3D effect */
+            padding: 10px;
+            transition: transform 0.2s, box-shadow 0.2s; /* Transition effect */
+        }
+
+        .class-container:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7); /* Deeper shadow */
+        }
+
+        /* Individual PDF container */
+        .pdf-link {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #800000; /* Maroon border */
+            border-radius: 8px;
+            background-color: #faebd7; /* Light beige background */
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 3D effect */
+        }
+
+        .pdf-link:hover {
+            background-color: #e5c7a7; /* Slightly darker on hover */
+            transform: translateY(-3px); /* Lift effect on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow */
+        }
+
+        /* Heading styling */
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            color: #ffffff; /* White color for contrast */
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Soft shadow for depth */
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #800000; /* Maroon color */
+            text-align: center;
+        }
+
+        /* PDF modal styling */
+        .pdf-modal {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000; /* Ensures it is on top */
+        }
+
+        /* PDF viewer styling inside the modal */
+        .pdf-container {
+            width: 90%;
+            height: 90%;
+            background-color: white;
+            border-radius: 15px;
+            overflow-y: scroll; /* Vertical scroll only */
+            overflow-x: hidden; /* Hide horizontal scroll */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Soft shadow */
+            position: relative;
+            transition: transform 0.2s; /* Smooth transition */
+        }
+
+        /* Iframe styling */
+        iframe {
+            width: 100%; /* Ensures the PDF fits the container's width */
+            height: 100%;
+            border: none;
+        }
+
+        /* Close button styling */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #800000; /* Maroon background for close button */
+            color: white; /* White text */
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+        }
+
+        .close-button:hover {
+            background-color: #a52a2a; /* Darker maroon on hover */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sample Papers and Practice Sheets</h1>
+
+    <!-- Class 8 Container -->
+    <div class="class-container">
+        <h2>Class 8</h2>
+        <div class="pdf-link" onclick="openPdf('class8.pdf')">Physics PDF - Class 8</div>
+        <div class="pdf-link" onclick="openPdf('class8_math.pdf')">Math PDF - Class 8</div>
+    </div>
+
+    <!-- Class 9 Container -->
+    <div class="class-container">
+        <h2>Class 9</h2>
+        <div class="pdf-link" onclick="openPdf('class9.pdf')">Physics PDF - Class 9</div>
+        <div class="pdf-link" onclick="openPdf('class9_math.pdf')">Math PDF - Class 9</div>
+    </div>
+
+    <!-- Class 10 Container -->
+    <div class="class-container">
+        <h2>Class 10</h2>
+        <div class="pdf-link" onclick="openPdf('sci.pdf')">Physics PDF - Class 10</div>
+        <div class="pdf-link" onclick="openPdf('class10_math.pdf')">Math PDF - Class 10</div>
+    </div>
+
+    <!-- PDF Modal -->
+    <div class="pdf-modal" id="pdf-modal">
+        <div class="pdf-container">
+            <button class="close-button" onclick="closePdf()">Close</button>
+            <iframe id="pdf-frame" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        function openPdf(pdfFile) {
+            document.getElementById('pdf-frame').src = pdfFile + "#toolbar=0&navpanes=0&scrollbar=0";
+            document.getElementById('pdf-modal').style.display = 'flex'; // Show the PDF modal
+        }
+
+        function closePdf() {
+            document.getElementById('pdf-modal').style.display = 'none'; // Hide the PDF modal
+            document.getElementById('pdf-frame').src = ''; // Clear the iframe source
+        }
+    </script>
+
+</body>
+</html>

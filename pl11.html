@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 11 Playlist</title>
+    <style>
+        body {
+            background-image: url('11pbg.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #4b2c20; /* Maroon shade */
+        }
+        .container {
+            background-color: rgba(255, 248, 220, 0.6); /* transparent beige */
+            padding: 20px;
+            margin: 50px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .heading {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #4b2c20; /* Maroon shade */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        .playlist-item:hover {
+            background-color: rgba(75, 44, 32, 0.1); /* light maroon */
+        }
+        .playlist-item img {
+            width: 80px;
+            height: auto;
+            margin-right: 1px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .playlist-item .title {
+            font-size: 0.7em;
+            background-color: rgba(75, 44, 32, 0.8); /* maroon with transparency */
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .playlist-item .topic-count {
+            margin-left: auto;
+            font-size: 0.7em;
+            color: #4b2c20; /* Maroon shade */
+        }
+        .topics {
+            padding-left: 10px;
+            margin-top: 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .topics.active {
+            max-height: 500px; /* Adjust as needed */
+        }
+        .topic {
+            padding: 8px 10px;
+            font-size: 0.5em;
+            color: #ffffff; /* White text */
+            background-color: #4b2c20; /* Maroon background */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .topic:hover {
+            background-color: #2c1b13; /* Darker maroon */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #8e44ad, #3498db); /* Gradient background */
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 600px;
+            color: white;
+            position: relative;
+            text-align: center;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ccc;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: white;
+        }
+        .modal-button {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .modal-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .test-options {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .test-option {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .test-option:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">Class 11 Playlist</div>
+        
+        <div class="playlist-item" onclick="toggleTopics(0)">
+            <img src="l.png" alt="Thumbnail 1">
+            <div class="title">Chapter 1:light </div>
+            <div class="topic-count">(6 topics)</div>
+        </div>
+        <div class="topics" id="topics-0">
+            <button class="topic" onclick="openModal('topic1')">light :intro</button>
+            <button class="topic" onclick="openModal('topic2')">shperical mirrors</button>
+            <button class="topic" onclick="openModal('topic3')">image formation</button>
+            <button class="topic" onclick="openModal('topic4')">mirror formula and magnifination</button>
+            <button class="topic" onclick="openModal('topic5')">refraction</button>
+            
+        </div>
+        
+        <div class="playlist-item" onclick="toggleTopics(1)">
+            <img src="ceec.png" alt="Thumbnail 2">
+            <div class="title">Chapter 2: Chemical Effects of Electric Current</div>
+            <div class="topic-count">(5 topics)</div>
+        </div>
+        <div class="topics" id="topics-1">
+            <button class="topic" onclick="openModal('topic7')">Liquids as conductors</button>
+            <button class="topic" onclick="openModal('topic8')">Electrolytic cell</button>
+            <button class="topic" onclick="openModal('topic9')">Good conductors and bad conductors</button>
+            <button class="topic" onclick="openModal('topic10')">Activities</button>
+            <button class="topic" onclick="openModal('topic11')">Electroplating</button>
+        </div>
+        
+        <!-- Add more chapters similarly -->
+        
+    </div>
+
+    <!-- Modals -->
+    <div id="modals-container">
+        <!-- Modals will be dynamically generated here -->
+    </div>
+
+    <script>
+        function toggleTopics(index) {
+            var topics = document.getElementById('topics-' + index);
+            topics.classList.toggle('active');
+        }
+
+        function openModal(topicId) {
+            var modal = document.getElementById(topicId);
+            modal.style.display = "block";
+        }
+
+        function closeModal(topicId) {
+            var modal = document.getElementById(topicId);
+            modal.style.display = "none";
+        }
+
+        function playVideoOnYouTube(videoUrl) {
+            window.open(videoUrl, '_blank'); // Open the video URL in a new tab
+        }
+
+        function downloadPDF(pdfName) {
+            // Simulate download action, for example:
+            var link = document.createElement('a');
+            link.href = pdfName;
+            link.download = pdfName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function toggleTestOptions(testOptionsId) {
+            var testOptions = document.getElementById(testOptionsId);
+            if (testOptions.style.display === "flex") {
+                testOptions.style.display = "none";
+            } else {
+                testOptions.style.display = "flex";
+            }
+        }
+
+        function openNewPage(pageUrl) {
+            window.open(pageUrl, '_blank');
+        }
+
+        function createModals() {
+            const modalData = [
+                {id: 'topic1', videoUrl: 'https://youtu.be/B-ibDd0S3-g?feature=shared', classNotes: 'fp.pdf', referenceNotes: 'fp.pdf', easyTest: 'easyfp1.html', mediumTest: 'easyfp1.html', hardTest: 'easyfp1.html'},
+                {id: 'topic2', videoUrl: 'https://www.youtube.com/watch?v=video2', classNotes: 'class_notes2.pdf', referenceNotes: 'reference_notes2.pdf', easyTest: 'easy_test_topic2.html', mediumTest: 'medium_test_topic2.html', hardTest: 'hard_test_topic2.html'},
+                {id: 'topic3', videoUrl: 'https://www.youtube.com/watch?v=video3', classNotes: 'class_notes3.pdf', referenceNotes: 'reference_notes3.pdf', easyTest: 'easy_test_topic3.html', mediumTest: 'medium_test_topic3.html', hardTest: 'hard_test_topic3.html'},
+                {id: 'topic4', videoUrl: 'https://www.youtube.com/watch?v=video4', classNotes: 'class_notes4.pdf', referenceNotes: 'reference_notes4.pdf', easyTest: 'easy_test_topic4.html', mediumTest: 'medium_test_topic4.html', hardTest: 'hard_test_topic4.html'},
+                {id: 'topic5', videoUrl: 'https://www.youtube.com/watch?v=video5', classNotes: 'class_notes5.pdf', referenceNotes: 'reference_notes5.pdf', easyTest: 'easy_test_topic5.html', mediumTest: 'medium_test_topic5.html', hardTest: 'hard_test_topic5.html'},
+                {id: 'topic6', videoUrl: 'https://www.youtube.com/watch?v=video6', classNotes: 'class_notes6.pdf', referenceNotes: 'reference_notes6.pdf', easyTest: 'easy_test_topic6.html', mediumTest: 'medium_test_topic6.html', hardTest: 'hard_test_topic6.html'},
+                {id: 'topic7', videoUrl: 'https://www.youtube.com/watch?v=video7', classNotes: 'class_notes7.pdf', referenceNotes: 'reference_notes7.pdf', easyTest: 'easy_test_topic7.html', mediumTest: 'medium_test_topic7.html', hardTest: 'hard_test_topic7.html'},
+                {id: 'topic8', videoUrl: 'https://www.youtube.com/watch?v=video8', classNotes: 'class_notes8.pdf', referenceNotes: 'reference_notes8.pdf', easyTest: 'easy_test_topic8.html', mediumTest: 'medium_test_topic8.html', hardTest: 'hard_test_topic8.html'},
+                {id: 'topic9', videoUrl: 'https://www.youtube.com/watch?v=video9', classNotes: 'class_notes9.pdf', referenceNotes: 'reference_notes9.pdf', easyTest: 'easy_test_topic9.html', mediumTest: 'medium_test_topic9.html', hardTest: 'hard_test_topic9.html'},
+                {id: 'topic10', videoUrl: 'https://www.youtube.com/watch?v=video10', classNotes: 'class_notes10.pdf', referenceNotes: 'reference_notes10.pdf', easyTest: 'easy_test_topic10.html', mediumTest: 'medium_test_topic10.html', hardTest: 'hard_test_topic10.html'},
+                {id: 'topic11', videoUrl: 'https://www.youtube.com/watch?v=video11', classNotes: 'class_notes11.pdf', referenceNotes: 'reference_notes11.pdf', easyTest: 'easy_test_topic11.html', mediumTest: 'medium_test_topic11.html', hardTest: 'hard_test_topic11.html'},
+                // Add more topics as needed
+            ];
+
+            const modalsContainer = document.getElementById('modals-container');
+            modalData.forEach(modal => {
+                const modalHTML = `
+                    <div id="${modal.id}" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal('${modal.id}')">&times;</span>
+                            <h2>${modal.id.replace('topic', 'Topic ')}</h2>
+                            <button class="modal-button" onclick="playVideoOnYouTube('${modal.videoUrl}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play-circle">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                                </svg> Play Video on YouTube
+                            </button>
+                            <button class="modal-button" onclick="downloadPDF('${modal.classNotes}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
+                                    <path d="M8 17l4 4 4-4m-4-5v9"></path>
+                                    <line x1="12" y1="12" x2="12" y2="21"></line>
+                                    <path d="M5 7h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"></path>
+                                </svg> Download Class Notes
+                            </button>
+                            <button class="modal-button" onclick="downloadPDF('${modal.referenceNotes}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
+                                    <path d="M8 17l4 4 4-4m-4-5v9"></path>
+                                    <line x1="12" y1="12" x2="12 21"></line>
+                                    <path d="M5 7h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"></path>
+                                </svg> Download Reference Notes
+                            </button>
+                            <button class="modal-button" onclick="toggleTestOptions('${modal.id}-test-options')">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
+                                    <path d="M12 20h9"></path>
+                                    <path d="M16 16v4"></path>
+                                    <path d="M8 12v-4a4 4 0 0 1 4-4h0a4 4 0 0 1 4 4v4"></path>
+                                    <circle cx="12" cy="8" r="2"></circle>
+                                </svg> Give a Test
+                            </button>
+                            <div id="${modal.id}-test-options" class="test-options">
+                                <button class="test-option" onclick="openNewPage('${modal.easyTest}')">Easy</button>
+                                <button class="test-option" onclick="openNewPage('${modal.mediumTest}')">Medium</button>
+                                <button class="test-option" onclick="openNewPage('${modal.hardTest}')">Hard</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                modalsContainer.innerHTML += modalHTML;
+            });
+        }
+
+        // Create modals when the page loads
+        window.onload = createModals;
+    </script>
+</body>
+</html>

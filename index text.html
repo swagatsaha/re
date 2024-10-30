@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('logbg1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(255, 248, 240, 0.95); /* Beige */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease-in-out;
+            max-width: 300px;
+            width: 100%;
+            position: relative; /* Ensure inner elements can be positioned inside */
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+        }
+
+        .logo {
+            position: absolute;
+            top: -40px;
+            left: -40px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%; /* Optional if you want a circular image */
+            border: 2px solid maroon;
+        }
+
+        h2 {
+            text-align: center;
+            color: maroon;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 300px;
+            margin: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: maroon;
+        }
+
+        input[type="tel"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .otp-input {
+            width: 40px;
+            height: 40px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: maroon;
+        }
+
+        .otp-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: maroon;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #8B0000;
+        }
+
+        p {
+            margin-top: 20px;
+            text-align: center;
+            color: maroon;
+        }
+
+        a {
+            color: maroon;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Image Logo -->
+        <img src="logo.png" alt="Logo" class="logo">
+
+        <form id="login-form">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="whatsapp">WhatsApp Number</label>
+                <input type="tel" id="whatsapp" name="whatsapp" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Sign In</button>
+            <p>Don't have an account? <a href="#" id="toggle-signup">Sign Up here</a></p>
+        </form>
+
+        <!-- Sign up form -->
+        <form id="signup-form" style="display: none;">
+            <h2>Sign Up</h2>
+            <div class="form-group">
+                <label for="signup-whatsapp">WhatsApp Number</label>
+                <input type="tel" id="signup-whatsapp" name="signup-whatsapp" required>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn" id="send-otp">Send OTP</button>
+            </div>
+            <div class="form-group">
+                <label for="otp">OTP</label>
+                <div class="otp-container">
+                    <input type="text" id="otp1" class="otp-input" maxlength="1" required>
+                    <input type="text" id="otp2" class="otp-input" maxlength="1" required>
+                    <input type="text" id="otp3" class="otp-input" maxlength="1" required>
+                    <input type="text" id="otp4" class="otp-input" maxlength="1" required>
+                    <input type="text" id="otp5" class="otp-input" maxlength="1" required>
+                    <input type="text" id="otp6" class="otp-input" maxlength="1" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="signup-password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <button type="submit" class="btn">Sign Up</button>
+            <p>Already have an account? <a href="#" id="toggle-login">Login here</a></p>
+        </form>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBunOvk3LyxX0HhDAADsGU3ATWfho7B-hI",
+            authDomain: "registration-faac5.firebaseapp.com",
+            projectId: "registration-faac5",
+            storageBucket: "registration-faac5.appspot.com",
+            messagingSenderId: "527971400698",
+            appId: "1:527971400698:web:00433ba8f151bac0e5c243",
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const toggleSignup = document.getElementById('toggle-signup');
+        const toggleLogin = document.getElementById('toggle-login');
+        const sendOtpBtn = document.getElementById('send-otp');
+        const otpInputs = document.querySelectorAll('.otp-input');
+
+        toggleSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+        });
+
+        toggleLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+        });
+
+        function generateOtp() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        sendOtpBtn.addEventListener('click', () => {
+            const otp = generateOtp();
+            sendOtpBtn.disabled = true;
+            sendOtpBtn.innerText = 'OTP Sent';
+            setTimeout(() => {
+                const otpDigits = otp.split('');
+                otpDigits.forEach((digit, index) => {
+                    otpInputs[index].value = digit;
+                });
+                alert(`OTP has been sent and auto-detected: ${otp}`);
+                sendOtpBtn.disabled = false;
+                sendOtpBtn.innerText = 'Send OTP';
+            }, 2000);
+        });
+
+        function validateWhatsAppNumber(number) {
+            const regex = /^[0-9]{10}$/;
+            return regex.test(number);
+        }
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const whatsapp = loginForm['whatsapp'].value;
+            const password = loginForm['password'].value;
+
+            if (!validateWhatsAppNumber(whatsapp)) {
+                alert("Please enter a valid 10-digit WhatsApp number.");
+                return;
+            }
+
+            firebase.auth().signInWithEmailAndPassword(whatsapp + '@whatsapp.com', password)
+                .then(() => {
+                    window.location.href = 'homepage.html';
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const whatsapp = signupForm['signup-whatsapp'].value;
+            const password = signupForm['signup-password'].value;
+            const confirmPassword = signupForm['confirm-password'].value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+
+            firebase.auth().createUserWithEmailAndPassword(whatsapp + '@whatsapp.com', password)
+                .then(() => {
+                    alert('Account created successfully.');
+                    window.location.href = 'homepage.html';
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 8 Playlist</title>
+    <style>
+        body {
+            background-image: url('8pbg.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #4b2c20; /* Maroon shade */
+        }
+        .container {
+            background-color: rgba(255, 248, 220, 0.6); /* transparent beige */
+            padding: 20px;
+            margin: 50px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .heading {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #4b2c20; /* Maroon shade */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        .playlist-item:hover {
+            background-color: rgba(75, 44, 32, 0.1); /* light maroon */
+        }
+        .playlist-item img {
+            width: 150px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .playlist-item .title {
+            font-size: 1.2em;
+            background-color: rgba(75, 44, 32, 0.8); /* maroon with transparency */
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .playlist-item .topic-count {
+            margin-left: auto;
+            font-size: 0.9em;
+            color: #4b2c20; /* Maroon shade */
+        }
+        .topics {
+            padding-left: 170px;
+            margin-top: 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .topics.active {
+            max-height: 500px; /* Adjust as needed */
+        }
+        .topic {
+            padding: 10px 15px;
+            font-size: 1em;
+            color: #ffffff; /* White text */
+            background-color: #4b2c20; /* Maroon background */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .topic:hover {
+            background-color: #2c1b13; /* Darker maroon */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #8e44ad, #3498db); /* Gradient background */
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 600px;
+            color: white;
+            position: relative;
+            text-align: center;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ccc;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: white;
+        }
+        .modal-button {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .modal-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .test-options {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .test-option {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .test-option:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">Class 8 Playlist</div>
+        
+        <div class="playlist-item" onclick="toggleTopics(0)">
+            <img src="fp1.png" alt="Thumbnail 1">
+            <div class="title">Chapter 1: Force and Pressure</div>
+            <div class="topic-count">(6 topics)</div>
+        </div>
+        <div class="topics" id="topics-0">
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Force and its effects</button>
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Types of force</button>
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Pressure exerted by solid</button>
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Pressure exerted by liquid</button>
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Pressure exerted by gas</button>
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Atmospheric pressure</button>
+        </div>
+        
+        <div class="playlist-item" onclick="toggleTopics(1)">
+            <img src="ceec.png" alt="Thumbnail 2">
+            <div class="title">Chapter 2: Chemical Effects of Electric Current</div>
+            <div class="topic-count">(5 topics)</div>
+        </div>
+        <div class="topics" id="topics-1">
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Liquids as conductors</button>
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Electrolytic cell</button>
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Good conductors and bad conductors</button>
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Activities</button>
+            <button class="topic" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">Electroplating</button>
+        </div>
+        
+        <!-- Add more chapters similarly -->
+        
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Topic Actions</h2>
+            <button class="modal-button" onclick="openModal('https://www.youtube.com/watch?v=yourvideoID')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play-circle">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                </svg> Play Video on YouTube
+            </button>
+            <button class="modal-button" onclick="downloadPDF('class_notes.pdf')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
+                    <path d="M8 17l4 4 4-4m-4-5v9"></path>
+                    <line x1="12" y1="12" x2="12" y2="21"></line>
+                    <path d="M5 7h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"></path>
+                </svg> Download Class Notes
+            </button>
+            <button class="modal-button" onclick="downloadPDF('reference_notes.pdf')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
+                    <path d="M8 17l4 4 4-4m-4-5v9"></path>
+                    <line x1="12" y1="12" x2="12" y2="21"></line>
+                    <path d="M5 7h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z"></path>
+                </svg> Download Reference Notes
+            </button>
+            <button class="modal-button" onclick="toggleTestOptions()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
+                    <path d="M12 20h9"></path>
+                    <path d="M16 16v4"></path>
+                    <path d="M8 12v-4a4 4 0 0 1 4-4h0a4 4 0 0 1 4 4v4"></path>
+                    <circle cx="12" cy="8" r="2"></circle>
+                </svg> Give a Test
+            </button>
+            <div id="testOptions" class="test-options">
+                <button class="test-option" onclick="openNewPage('easy_test.html')">Easy</button>
+                <button class="test-option" onclick="openNewPage('medium_test.html')">Medium</button>
+                <button class="test-option" onclick="openNewPage('hard_test.html')">Hard</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTopics(index) {
+            var topics = document.getElementById('topics-' + index);
+            topics.classList.toggle('active');
+        }
+
+        function openModal(videoUrl) {
+            var modal = document.getElementById('myModal');
+            modal.style.display = "block";
+            // Here you can handle opening the YouTube video or any other actions
+            // For example, you can use window.open(videoUrl, '_blank') to open in a new tab
+        }
+
+        function closeModal() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = "none";
+        }
+
+        function downloadPDF(pdfName) {
+            // Simulate download action, for example:
+            alert('Downloading ' + pdfName);
+            // You can replace alert with actual download logic
+        }
+
+        function toggleTestOptions() {
+            var testOptions = document.getElementById('testOptions');
+            if (testOptions.style.display === "flex") {
+                testOptions.style.display = "none";
+            } else {
+                testOptions.style.display = "flex";
+            }
+        }
+
+        function openNewPage(pageUrl) {
+            window.open(pageUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 8 Playlist</title>
+    <style>
+        body {
+            background-image: url('8pbg.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #4b2c20; /* Maroon shade */
+        }
+        .container {
+            background-color: rgba(255, 248, 220, 0.6); /* transparent beige */
+            padding: 20px;
+            margin: 50px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .heading {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #4b2c20; /* Maroon shade */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        .playlist-item:hover {
+            background-color: rgba(75, 44, 32, 0.1); /* light maroon */
+        }
+        .playlist-item img {
+            width: 150px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .playlist-item .title {
+            font-size: 1.2em;
+            background-color: rgba(75, 44, 32, 0.8); /* maroon with transparency */
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .playlist-item .topic-count {
+            margin-left: auto;
+            font-size: 0.9em;
+            color: #4b2c20; /* Maroon shade */
+        }
+        .topics {
+            display: none;
+            padding-left: 170px;
+            margin-top: 10px;
+            transition: max-height 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .topics.active {
+            display: block;
+            max-height: 500px; /* Adjust as needed */
+        }
+        .topic {
+            padding: 10px 15px;
+            font-size: 1em;
+            color: #ffffff; /* White text */
+            background-color: #4b2c20; /* Maroon background */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .topic:hover {
+            background-color: #2c1b13; /* Darker maroon */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">Class 8 Playlist</div>
+        
+        <div class="playlist-item" onclick="toggleTopics(0)">
+            <img src="fp1.png" alt="Thumbnail 1">
+            <div class="title">Chapter 1: Force and Pressure</div>
+            <div class="topic-count">(6 topics)</div>
+        </div>
+        <div class="topics" id="topics-0">
+            <button class="topic" onclick="alert('Clicked on Topic 1')"> Force and its effects</button>
+            <button class="topic" onclick="alert('Clicked on Topic 2')"> Types of force</button>
+            <button class="topic" onclick="alert('Clicked on Topic 3')"> Presure exerted by solid </button>
+            <button class="topic" onclick="alert('Clicked on Topic 1')"> Pressure exerted by liquid</button>
+            <button class="topic" onclick="alert('Clicked on Topic 2')"> Pressure exerted by gas</button>
+            <button class="topic" onclick="alert('Clicked on Topic 3')"> Atmospheric pressure </button>
+        </div>
+        
+        <div class="playlist-item" onclick="toggleTopics(1)">
+            <img src="ceec.png" alt="Thumbnail 2">
+            <div class="title">Chapter 2: Chemical Effects of Electric Current </div>
+            <div class="topic-count">(5 topics)</div>
+        </div>
+        <div class="topics" id="topics-1">
+            <button class="topic" onclick="alert('Clicked on Topic 1')">liquids as conductors</button>
+            <button class="topic" onclick="alert('Clicked on Topic 2')"> electrolytic cell</button>
+            <button class="topic" onclick="alert('Clicked on Topic 3')"> Good conductors and bad conductors</button>
+            <button class="topic" onclick="alert('Clicked on Topic 4')"> activities</button>
+            <button class="topic" onclick="alert('Clicked on Topic 5')"> Electroplating</button>
+        </div>
+        
+        <!-- Add more chapters similarly -->
+        
+    </div>
+
+    <script>
+        function toggleTopics(index) {
+            var topics = document.getElementById('topics-' + index);
+            if (topics.classList.contains('active')) {
+                topics.classList.remove('active');
+            } else {
+                var allTopics = document.querySelectorAll('.topics');
+                allTopics.forEach(function(topic) {
+                    topic.classList.remove('active');
+                });
+                topics.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

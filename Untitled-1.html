@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Exam Portal</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc; /* Beige */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .header {
+            background-color: #800000; /* Maroon */
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .exam-info {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .exam-info-item {
+            background-color: #800000; /* Maroon */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            flex: 1;
+            margin-right: 10px;
+        }
+        .timer {
+            background-color: #800000; /* Maroon */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 20px;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .question-container {
+            width: 80%;
+            display: none;
+        }
+        .question.active {
+            display: block;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+        .question p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+        .option {
+            margin-bottom: 10px;
+        }
+        .option input[type="radio"] {
+            display: none;
+        }
+        .option label {
+            background-color: #f2d4a2; /* Light Brown */
+            color: #0b0606;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+        .option label:hover {
+            background-color: #e8dcb8; /* Darker Light Brown */
+        }
+        .option input[type="radio"]:checked + label {
+            background-color: #800000; /* Maroon */
+            color: #fff;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #f2d4a2; /* Light Brown */
+            color: #0b0606;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #e8dcb8; /* Darker Light Brown */
+        }
+        .btn.finish {
+            background-color: #800000; /* Maroon */
+            color: #fff;
+        }
+        .btn.finish:hover {
+            background-color: #500000; /* Darker Maroon */
+        }
+        .results {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            width: 80%;
+            display: none;
+        }
+        .results h2 {
+            color: #800000; /* Maroon */
+            margin-top: 0;
+        }
+        .results p {
+            margin-bottom: 10px;
+        }
+        .results-btn {
+            background-color: #800000; /* Maroon */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .results-btn:hover {
+            background-color: #500000; /* Darker Maroon */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        Online Exam Portal
+    </div>
+
+    <!-- Exam Information -->
+    <div class="exam-info">
+        <div class="exam-info-item" id="questionsAppeared">
+            Questions Appeared: <span id="appearedCount">0</span>
+        </div>
+        <div class="exam-info-item" id="questionsRemaining">
+            Questions Remaining: <span id="remainingCount">0</span>
+        </div>
+        <div class="exam-info-item" id="timeLeft">
+            Time Left: <span id="timer">00:00</span>
+        </div>
+    </div>
+
+    <!-- Questions Container -->
+    <div class="question-container" id="questionContainer">
+        <!-- Question 1 -->
+        <div class="question active" id="question1">
+            <p>Question 1: What is the capital of France?</p>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q1option1" name="q1answer" value="Paris">
+                    <label for="q1option1">Paris</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q1option2" name="q1answer" value="London">
+                    <label for="q1option2">London</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q1option3" name="q1answer" value="Berlin">
+                    <label for="q1option3">Berlin</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q1option4" name="q1answer" value="Madrid">
+                    <label for="q1option4">Madrid</label>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question" id="question2">
+            <p>Question 2: What is the chemical symbol for water?</p>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q2option1" name="q2answer" value="H2O">
+                    <label for="q2option1">H2O</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q2option2" name="q2answer" value="CO2">
+                    <label for="q2option2">CO2</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q2option3" name="q2answer" value="O2">
+                    <label for="q2option3">O2</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q2option4" name="q2answer" value="H2">
+                    <label for="q2option4">H2</label>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn" onclick="prevQuestion()">Previous</button>
+                <button class="btn" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question" id="question3">
+            <p>Question 3: What is the powerhouse of the cell?</p>
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q3option1" name="q3answer" value="Nucleus">
+                    <label for="q3option1">Nucleus</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q3option2" name="q3answer" value="Ribosome">
+                    <label for="q3option2">Ribosome</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q3option3" name="q3answer" value="Mitochondrion">
+                    <label for="q3option3">Mitochondrion</label>
+                </div>
+                <div class="option">
+                    <input type="radio" id="q3option4" name="q3answer" value="Cytoplasm">
+                    <label for="q3option4">Cytoplasm</label>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn" onclick="prevQuestion()">Previous</button>
+                <button class="btn finish" onclick="endExam()">Finish Exam</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results" id="results">
+        <h2>Exam Results</h2>
+        <p>You answered <span id="correctCount">0</span> out of <span id="totalQuestionsCount">0</span> questions correctly.</p>
+        <p>Questions to prepare for next attempt: <span id="questionsToPrepare"></span></p>
+        <button class="results-btn" onclick="returnToHomePage()">Close</button>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mock questions and answers
+        const questions = [
+            { question: "What is the capital of France?", answers: ["Paris", "London", "Berlin", "Madrid"], correctAnswer: "Paris" },
+            { question: "What is the chemical symbol for water?", answers: ["H2O", "CO2", "O2", "H2"], correctAnswer: "H2O" },
+            { question: "What is the powerhouse of the cell?", answers: ["Nucleus", "Ribosome", "Mitochondrion", "Cytoplasm"], correctAnswer: "Mitochondrion" }
+        ];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        const totalQuestions = questions.length;
+
+        // Function to start the exam
+        function startExam() {
+            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('question1').classList.add('active');
+            updateLiveAnalysis();
+            startTimer();
+        }
+
+        // Function to update live analysis
+        function updateLiveAnalysis() {
+            document.getElementById('appearedCount').textContent = currentQuestion + 1;
+            document.getElementById('remainingCount').textContent = totalQuestions - (currentQuestion + 1);
+        }
+
+        // Function to start the timer (dummy implementation)
+        function startTimer() {
+            let timeLeft = 600; // 10 minutes timer
+            const timerInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    clearInterval(timerInterval);
+                    endExam();
+                }
+            }, 1000);
+        }
+
+        // Function to move to the next question
+        function nextQuestion() {
+            const selectedAnswer = document.querySelector(`input[name="q${currentQuestion + 1}answer"]:checked`);
+            if (!selectedAnswer) {
+                alert("Please select an answer.");
+                return;
+            }
+
+            if (selectedAnswer.value === questions[currentQuestion].correctAnswer) {
+                correctAnswers++;
+            }
+
+            currentQuestion++;
+
+            if (currentQuestion < totalQuestions) {
+                document.getElementById(`question${currentQuestion + 1}`).classList.add('active');
+                document.getElementById(`question${currentQuestion}`).classList.remove('active');
+                updateLiveAnalysis();
+            } else {
+                showResults();
+            }
+        }
+
+        // Function to move to the previous question
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                document.getElementById(`question${currentQuestion}`).classList.remove('active');
+                currentQuestion--;
+                document.getElementById(`question${currentQuestion + 1}`).classList.add('active');
+                updateLiveAnalysis();
+            }
+        }
+
+        // Function to end the exam and show results
+        function endExam() {
+            clearInterval(timerInterval); // Stop the timer
+
+            // Calculate questions to prepare for next attempt
+            const questionsToPrepare = [];
+            questions.forEach((question, index) => {
+                if (index !== currentQuestion && question.correctAnswer !== questions[index].correctAnswer) {
+                    questionsToPrepare.push(index + 1);
+                }
+            });
+
+            // Display results
+            document.getElementById('correctCount').textContent = correctAnswers;
+            document.getElementById('totalQuestionsCount').textContent = totalQuestions;
+            document.getElementById('questionsToPrepare').textContent = questionsToPrepare.join(', ');
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+        }
+
+        // Function to return to home page
+        function returnToHomePage() {
+            window.location.href = "index.html"; // Replace with your home page URL
+        }
+    </script>
+</body>
+</html>

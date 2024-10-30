@@ -1,0 +1,20 @@
+function downloadPDF(pdfFile) {
+    const link = document.createElement('a');
+    link.href = pdfFile;
+    link.download = pdfFile;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.carousel');
+    const books = document.querySelectorAll('.book');
+    const bookCount = books.length;
+    const theta = 360 / bookCount;
+
+    books.forEach((book, index) => {
+        const currentAngle = theta * index;
+        book.style.transform = `rotateY(${currentAngle}deg) translateZ(250px)`;
+    });
+});
